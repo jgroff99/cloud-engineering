@@ -1,0 +1,32 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowOnlyMyIdentity",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::455919270027:user/admin"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::ce-versioning-lab-jgroff99/*"
+    },
+    {
+      "Sid": "DenyNonHTTPS",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::ce-versioning-lab-jgroff99",
+        "arn:aws:s3:::ce-versioning-lab-jgroff99/*"
+      ],
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    }
+  ]
+}
