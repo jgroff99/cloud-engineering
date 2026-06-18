@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Engineering Project 1</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        h1 { color: #232f3e; }
+        .status { padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .ok { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button { background: #ff9900; color: white; border: none; padding: 10px 20px; 
+                 border-radius: 4px; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>🏗️ Cloud Engineering — Project 1</h1>
+    <p>3-Tier Web Application | Week 8 Capstone</p>
+    <hr>
+    <h2>API Health Check</h2>
+    <button onclick="checkApi()">Test /api/health</button>
+    <div id="result" class="status" style="display:none"></div>
+
+    <script>
+        async function checkApi() {
+            const el = document.getElementById('result');
+            el.style.display = 'block';
+            el.className = 'status';
+            el.textContent = 'Checking...';
+            try {
+                const res = await fetch('/api/health');
+                const data = await res.json();
+                el.className = 'status ok';
+                el.textContent = '✅ API OK: ' + JSON.stringify(data);
+            } catch(e) {
+                el.className = 'status error';
+                el.textContent = '❌ API Error: ' + e.message;
+            }
+        }
+    </script>
+</body>
+</html>

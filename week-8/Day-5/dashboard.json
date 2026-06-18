@@ -1,0 +1,107 @@
+{
+    "widgets": [
+        {
+            "type": "alarm",
+            "x": 0, "y": 0, "width": 24, "height": 2,
+            "properties": {
+                "title": "Alarm Status",
+                "alarms": [
+                    "arn:aws:cloudwatch:us-east-2:ACCOUNT_ID:alarm:week8-alb-5xx-rate",
+                    "arn:aws:cloudwatch:us-east-2:ACCOUNT_ID:alarm:week8-asg-instance-count-low",
+                    "arn:aws:cloudwatch:us-east-2:ACCOUNT_ID:alarm:week8-rds-cpu-high",
+                    "arn:aws:cloudwatch:us-east-2:ACCOUNT_ID:alarm:week8-critical-outage"
+                ]
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0, "y": 2, "width": 12, "height": 6,
+            "properties": {
+                "title": "ALB Request Count & 5xx Errors",
+                "metrics": [
+                    ["AWS/ApplicationELB", "RequestCount", "LoadBalancer", "app/week8-alb/b1f25f60812b5fc1"],
+                    ["AWS/ApplicationELB", "HTTPCode_ELB_5XX_Count", "LoadBalancer", "app/week8-alb/b1f25f60812b5fc1"]
+                ],
+                "period": 60,
+                "stat": "Sum",
+                "region": "us-east-2",
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12, "y": 2, "width": 12, "height": 6,
+            "properties": {
+                "title": "ALB Target Response Time & Healthy Hosts",
+                "metrics": [
+                    ["AWS/ApplicationELB", "TargetResponseTime", "LoadBalancer", "app/week8-alb/b1f25f60812b5fc1"],
+                    ["AWS/ApplicationELB", "HealthyHostCount", "LoadBalancer", "app/week8-alb/b1f25f60812b5fc1"]
+                ],
+                "period": 60,
+                "stat": "Average",
+                "region": "us-east-2",
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0, "y": 8, "width": 12, "height": 6,
+            "properties": {
+                "title": "ASG Instance Count",
+                "metrics": [
+                    ["AWS/AutoScaling", "GroupInServiceInstances", "AutoScalingGroupName", "week8-app-asg"],
+                    ["AWS/AutoScaling", "GroupDesiredCapacity", "AutoScalingGroupName", "week8-app-asg"]
+                ],
+                "period": 60,
+                "stat": "Average",
+                "region": "us-east-2",
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12, "y": 8, "width": 12, "height": 6,
+            "properties": {
+                "title": "RDS CPU & Connections",
+                "metrics": [
+                    ["AWS/RDS", "CPUUtilization", "DBInstanceIdentifier", "week8-mysql"],
+                    ["AWS/RDS", "DatabaseConnections", "DBInstanceIdentifier", "week8-mysql"]
+                ],
+                "period": 60,
+                "stat": "Average",
+                "region": "us-east-2",
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0, "y": 14, "width": 12, "height": 6,
+            "properties": {
+                "title": "RDS Read/Write Latency",
+                "metrics": [
+                    ["AWS/RDS", "ReadLatency", "DBInstanceIdentifier", "week8-mysql"],
+                    ["AWS/RDS", "WriteLatency", "DBInstanceIdentifier", "week8-mysql"]
+                ],
+                "period": 60,
+                "stat": "Average",
+                "region": "us-east-2",
+                "view": "timeSeries"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12, "y": 14, "width": 12, "height": 6,
+            "properties": {
+                "title": "CloudFront Requests & Error Rate",
+                "metrics": [
+                    ["AWS/CloudFront", "Requests", "DistributionId", "E1WCO13EB2CVK2", "Region", "Global"],
+                    ["AWS/CloudFront", "5xxErrorRate", "DistributionId", "E1WCO13EB2CVK2", "Region", "Global"]
+                ],
+                "period": 60,
+                "stat": "Sum",
+                "region": "us-east-1",
+                "view": "timeSeries"
+            }
+        }
+    ]
+}

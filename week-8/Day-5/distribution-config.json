@@ -1,0 +1,64 @@
+{
+  "CallerReference": "cloud-engineering-week8-001",
+  "Comment": "Week 8 Capstone - 3-tier app",
+  "DefaultCacheBehavior": {
+    "TargetOriginId": "S3-frontend",
+    "ViewerProtocolPolicy": "redirect-to-https",
+    "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+    "AllowedMethods": {
+      "Quantity": 2,
+      "Items": ["GET", "HEAD"]
+    }
+  },
+  "CacheBehaviors": {
+    "Quantity": 1,
+    "Items": [
+      {
+        "PathPattern": "/api/*",
+        "TargetOriginId": "ALB-backend",
+        "ViewerProtocolPolicy": "redirect-to-https",
+        "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+        "AllowedMethods": {
+          "Quantity": 7,
+          "Items": ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+        }
+      }
+    ]
+  },
+  "Origins": {
+    "Quantity": 2,
+    "Items": [
+      {
+        "Id": "S3-frontend",
+        "DomainName": "cloud-engineering-frontend-ACCOUNT_ID.s3.us-east-2.amazonaws.com",
+        "S3OriginConfig": {
+          "OriginAccessIdentity": ""
+        },
+        "OriginAccessControlId": "E2N7TGBHIT0TDM"
+      },
+      {
+        "Id": "ALB-backend",
+        "DomainName": "week8-alb-1834531349.us-east-2.elb.amazonaws.com",
+        "CustomOriginConfig": {
+          "HTTPPort": 80,
+          "HTTPSPort": 443,
+          "OriginProtocolPolicy": "http-only"
+        }
+      }
+    ]
+  },
+  "DefaultRootObject": "index.html",
+  "CustomErrorResponses": {
+    "Quantity": 1,
+    "Items": [
+      {
+        "ErrorCode": 403,
+        "ResponsePagePath": "/error.html",
+        "ResponseCode": "404",
+        "ErrorCachingMinTTL": 10
+      }
+    ]
+  },
+  "Enabled": true,
+  "HttpVersion": "http2"
+}
