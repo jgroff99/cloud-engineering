@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+# Install SSM agent (pre-installed on AL2023, but explicit is better)
+yum install -y amazon-ssm-agent
+systemctl enable amazon-ssm-agent
+systemctl start amazon-ssm-agent
+
+echo "Instance: ${instance_name}" >> /var/log/init.log
+echo "Environment: ${environment}" >> /var/log/init.log
+echo "App: ${app_name}" >> /var/log/init.log
