@@ -1,0 +1,14 @@
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = aws_vpc.main.id
+}
+
+output "public_subnet_ids" {
+  description = "Map of public subnet IDs keyed by name"
+  value       = { for k, v in aws_subnet.this : k => v.id if v.map_public_ip_on_launch }
+}
+
+output "private_subnet_ids" {
+  description = "Map of private subnet IDs keyed by name"
+  value       = { for k, v in aws_subnet.this : k => v.id if !v.map_public_ip_on_launch }
+}
